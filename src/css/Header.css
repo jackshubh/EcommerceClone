@@ -1,0 +1,77 @@
+.header {
+  background-color: #131921; /* Background color is the same color used from amazon website. */
+  display: flex; /* flex is used to set the length of flexible items. */
+  align-items: center;
+  position: sticky; /* Position sticky means the header component will be stick to the top during scrolling. */
+  top: 0; /* Set the edge of the dic to the top. */
+  z-index: 100; /* Z index value help to show things in background or in front based on the value, negative value z index meaning the image will be shown in the background. */
+}
+
+.header__dehazeIcon {
+  color: white;
+  padding-left: 25px;
+}
+
+.header__logo {
+  width: 100px; /* Width helps to set the width of the content. */
+  object-fit: contain; /* Cut off the sides of an image, preserving the aspect ratio, and also filling in the space: */
+  margin: 18px 20px 0 20px; /* Sets the margin for the content in the order top right bottom left. */
+}
+
+.header__search {
+  display: flex;
+  flex: 1;
+}
+
+.header__searchInput {
+  height: 12px;
+  padding: 10px;
+  border: none;
+  width: 100%;
+}
+
+.header__searchIcon {
+  padding: 5px;
+  height: 22px !important;
+  background-color: #cd9042;
+}
+
+.header__nav {
+  align-items: center;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.header__link {
+  color: white;
+  text-decoration: none;
+}
+
+.header__option {
+  display: flex;
+  flex-direction: column;
+  margin: 0 10px;
+  color: white;
+}
+
+.header__optionLineOne {
+  font-size: 10px;
+  margin-top: 10px;
+}
+
+.header__optionLineTwo {
+  font-size: 13px;
+  font-weight: 900;
+  margin-bottom: 10px;
+}
+
+.header__optionBasket {
+  display: flex;
+  align-items: center;
+  color: white;
+}
+
+.header__basketCount {
+  margin: 0px 10px 0px 5px;
+  color: #cd9042;
+}

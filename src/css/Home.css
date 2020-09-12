@@ -1,0 +1,28 @@
+.home {
+  max-width: 1500; /* It sets the maximum width of the home container it can go. */
+  margin: 0 auto;
+}
+.home__image {
+  width: 100%; /* This is sets the width of the image. */
+  mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 1),
+    rgba(0, 0, 0, 0)
+  ); /* In this linear-gradient part gives the effect of fading of image linearly. rgba makes the image from opaque to see through*/
+  z-index: -1; /* It help to make the image goes in background and the items can lay donw on it. */
+  margin-bottom: -150px;
+}
+
+.home__row {
+  display: flex;
+  z-index: 1; /* This is means the content will not go into background as z index value is positive. */
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.home__test {
+  display: flex;
+  z-index: 1; /* This is means the content will not go into background as z index value is positive. */
+  margin: 5px;
+  padding: 22px;
+}
