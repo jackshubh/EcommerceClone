@@ -50,6 +50,7 @@ function App() {
             <Orders />
           </Route>
           <Route path="/payment">
+            <Header />
             <Elements stripe={promise}>
               <Payment />
             </Elements>

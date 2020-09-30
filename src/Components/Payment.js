@@ -8,6 +8,8 @@ import CurrencyFormat from "react-currency-format";
 import { getCartTotal } from "../context/reducer";
 import axios from "../firebase/axios";
 import { db } from "../firebase/firebase";
+import { store } from "react-notifications-component";
+import FlipMove from "react-flip-move";
 
 function Payment() {
   const [{ cart, user }, dispatch] = useStateValue();
@@ -24,19 +26,23 @@ function Payment() {
 
   useEffect(() => {
     const getClientSecret = async () => {
-      const total = Math.round(getCartTotal(cart) * 100);
-      const response = await axios({
-        method: "post",
-        // Stripe expects the total in a currencies subunits
-        url: `/payments/create?total=${total}`,
-      });
-      setClientSecret(response.data.clientSecret);
+      try {
+        const total = Math.round(getCartTotal(cart) * 100); //To make the total whole number
+        const response = await axios({
+          method: "post",
+          // Stripe expects the total in a currencies subunits
+          url: `/payments/create?total=${total}`,
+        });
+        setClientSecret(response.data.clientSecret);
+      } catch (error) {
+        console.log("error", error);
+      }
     };
     getClientSecret();
   }, [cart]);
 
-  console.log("THE SECRET IS >>>", clientSecret);
-  console.log("👱", user);
+  //console.log("THE SECRET IS >>>", clientSecret);
+  //console.log("👱", user);
 
   const handleSubmit = async (event) => {
     // do all the fancy stripe stuff...
@@ -70,8 +76,8 @@ function Payment() {
         dispatch({
           type: "EMPTY_CART",
         });
-
-        history.replace("/orders");
+        alert("Your Order Placed Successfully");
+        history.replace("/orders"); //User will not be able to go to payment page again by pressing back button.
       });
   };
 
@@ -97,6 +103,7 @@ function Payment() {
           <div className="payment__address">
             <p>{user?.email}</p>
             <p>B/2M Kesar Bagh Colony</p>
+            <p>Scheme No 103</p>
             <p>Indore(M.P), India</p>
           </div>
         </div>
@@ -107,15 +114,23 @@ function Payment() {
             <h3>Review items and delivery</h3>
           </div>
           <div className="payment__items">
-            {cart.map((item) => (
-              <CheckoutProduct
-                id={item.id}
-                title={item.title}
-                image={item.image}
-                price={item.price}
-                rating={item.rating}
-              />
-            ))}
+            <FlipMove
+              appearAnimation="fade"
+              enterAnimation="fade"
+              sortingMethod="chronological"
+            >
+              <div key={cart}>
+                {cart.map((item) => (
+                  <CheckoutProduct
+                    id={item.id}
+                    title={item.title}
+                    image={item.image}
+                    price={item.price}
+                    rating={item.rating}
+                  />
+                ))}
+              </div>
+            </FlipMove>
           </div>
         </div>
 
@@ -142,6 +157,11 @@ function Payment() {
                 <button disabled={processing || disabled || succeeded}>
                   <span>{processing ? <p>Processing</p> : "Buy Now"}</span>
                 </button>
+                <div className="CardDetails">
+                  <p>
+                    Card Num: 4242 4242 4242 4242 Date: 0424 CVC: 242 Zip: 42424
+                  </p>
+                </div>
               </div>
 
               {/* Errors */}
